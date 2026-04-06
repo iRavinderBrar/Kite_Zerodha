@@ -1,7 +1,7 @@
 
 # Python Code for Kite Zerodha Platform
 
-* __Author: [TradeViaPython](https://www.youtube.com/c/TradeViaPython)__
+* __Author: [AlgoTrader](https://www.youtube.com/@iRavinderBrar)__
 
 ## Installation
 
@@ -25,22 +25,9 @@ from kite_trade import *
 ```
 Log In Method
 ```python
-# # First Way to Login
-# # You can use your Kite app in mobile
-# # But You can't login anywhere in 'kite.zerodha.com' website else this session will disconnected
-
-user_id = ""       # Login Id
-password = ""      # Login password
-twofa = ""         # Login Pin or TOTP
-
-enctoken = get_enctoken(user_id, password, twofa)
-kite = KiteApp(enctoken=enctoken)
-```
-Log In Method
-```python
-# # Second way is provide 'enctoken' manually from 'kite.zerodha.com' website
+# # Provide 'enctoken' manually from 'kite.zerodha.com' website
 # # Than you can use login window of 'kite.zerodha.com' website Just don't logout from that window
-# # # Process shared on YouTube 'TradeViaPython'
+# # # Process shared on YouTube 'AlgoTrader'
 
 enctoken = ""
 kite = KiteApp(enctoken=enctoken)

@@ -13,24 +13,6 @@ import requests
 import dateutil.parser
 
 
-def get_enctoken(userid, password, twofa):
-    session = requests.Session()
-    response = session.post('https://kite.zerodha.com/api/login', data={
-        "user_id": userid,
-        "password": password
-    })
-    response = session.post('https://kite.zerodha.com/api/twofa', data={
-        "request_id": response.json()['data']['request_id'],
-        "twofa_value": twofa,
-        "user_id": response.json()['data']['user_id']
-    })
-    enctoken = response.cookies.get('enctoken')
-    if enctoken:
-        return enctoken
-    else:
-        raise Exception("Enter valid details !!!!")
-
-
 class KiteApp:
     # Products
     PRODUCT_MIS = "MIS"

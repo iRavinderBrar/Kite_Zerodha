@@ -8,7 +8,7 @@ try:
 except ImportError:
     os.system('python -m pip install python-dateutil')
 
-
+import json
 import requests
 import dateutil.parser
 
@@ -46,6 +46,10 @@ class KiteApp:
     EXCHANGE_CDS = "CDS"
     EXCHANGE_BFO = "BFO"
     EXCHANGE_MCX = "MCX"
+
+    # GTT order type
+    GTT_TYPE_OCO = "two-leg"
+    GTT_TYPE_SINGLE = "single"    
 
     def __init__(self, enctoken):
         self.enctoken = enctoken
@@ -102,6 +106,54 @@ class KiteApp:
         positions = self.session.get(f"{self.root_url}/portfolio/positions", headers=self.headers).json()["data"]
         return positions
 
+    # Get list of GTT orders from the current account
+    def gtt_orders(self):
+        gtt_orders = self.session.get(f"{self.root_url}/gtt/triggers", headers=self.headers).json()["data"]
+        return gtt_orders
+
+    # Get a specific GTT order based on orderId
+    def gtt_order(self, order_id):
+        gtt_order = self.session.get(f"{self.root_url}/gtt/triggers/{order_id}", headers=self.headers).json()["data"]
+        return gtt_order
+        
+    # Delete a specific GTT order based on orderId
+    def gtt_delete_order(self, order_id):
+        gtt_delete_order = self.session.delete(f"{self.root_url}/gtt/triggers/{order_id}", headers=self.headers).json()["data"]
+        return gtt_delete_order
+
+    # Create a GTT order
+    def gtt_create_order(self, exchange, tradingsymbol, transaction_type, order_type, product, trigger_type, last_price, quantity, price_values, trigger_values):
+        assert trigger_type in [self.GTT_TYPE_OCO, self.GTT_TYPE_SINGLE]
+
+        condition = {
+            "exchange": exchange,
+            "tradingsymbol": tradingsymbol,
+            "trigger_values": trigger_values,
+            "last_price": last_price,
+        }        
+
+        gtt_leg_orders = []
+        for price in price_values:
+            gtt_leg_orders.append({
+                "exchange": exchange,
+                "tradingsymbol": tradingsymbol,
+                "transaction_type": transaction_type,
+                "quantity": quantity,
+                "price": price,
+                "order_type": order_type,
+                "product": product,
+            })
+
+        gtt_params = {
+            "condition": json.dumps(condition),
+            "orders": json.dumps(gtt_leg_orders), 
+            "type": trigger_type, 
+        }
+
+        gtt_create_order = self.session.post(f"{self.root_url}/gtt/triggers", data=gtt_params, headers=self.headers).json()
+        return gtt_create_order
+
+    
     def place_order(self, variety, exchange, tradingsymbol, transaction_type, quantity, product, order_type, price=None,
                     validity=None, disclosed_quantity=None, trigger_price=None, squareoff=None, stoploss=None,
                     trailing_stoploss=None, tag=None):

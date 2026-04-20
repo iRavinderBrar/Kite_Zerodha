@@ -120,4 +120,32 @@ kite.cancel_order(variety=kite.VARIETY_REGULAR,
                   parent_order_id=None)
 ```
                   
+Get All GTT Orders
+```python
+gtt_orders():
+```
+
+Get a specific GTT Order by OrderId
+```python
+gtt_order(order_id):
+```
+
+Delete a specific GTT Order by OrderId
+```python
+gtt_delete_order(order_id):
+```
+
+Create a GTT Order
+```python
+gtt_create_order(self, exchange, tradingsymbol, transaction_type, order_type, product, trigger_type, last_price, quantity, price_values, trigger_values):
+
+# Sample of Single Leg Sell GTT Order
+kite.gtt_create_order('NSE', 'HDFCBANK', 'SELL', 'LIMIT', 'CNC', 'single', 1810.25, 10, [1840.5], [1840])
+
+# Sample of Single Leg Buy GTT Order
+kite.gtt_create_order('NSE', 'HDFCBANK', 'BUY', 'LIMIT', 'CNC', 'single', 1810.25, 10, [1820.5], [1818])
+
+# Sample of Two Leg GTT Order - OCO
+kite.gtt_create_order('NSE', 'HDFCBANK', 'SELL', 'LIMIT', 'CNC', 'two-leg', 1810.25, 10, [1780, 1840], [1782, 1838])
+
 ```

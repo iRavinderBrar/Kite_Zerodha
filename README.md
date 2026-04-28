@@ -40,42 +40,6 @@ print(kite.profile())
 print(kite.margins())
 print(kite.orders())
 print(kite.positions())
-
-# Get instrument or exchange
-print(kite.instruments())
-print(kite.instruments("NSE"))
-print(kite.instruments("NFO"))
-```
-
-Get Tick Data 'Use Websocket'
-```python
-from kiteconnect import KiteTicker
-user_id = kite.profile()["user_id"]
-kws = KiteTicker(api_key="AlgoTrader", access_token=enctoken+"&user_id="+user_id)
-
-def on_ticks(ws, ticks):
-    print(ticks)
-
-kws.on_ticks = on_ticks
-kws.connect(threaded=True)
-while not kws.is_connected():
-    time.sleep(1)
-print("WebSocket : Connected")
-# use instrument_token to get data
-kws.subscribe([256265, 260105, 738561, 5633])
-kws.set_mode(kws.MODE_QUOTE, [256265, 260105, 738561, 5633])
-time.sleep(30)
-kws.unsubscribe([256265, 260105, 738561, 5633])
-```
-
-Get Historical Data
-```python
-import datetime
-instrument_token = 9604354
-from_datetime = datetime.datetime.now() - datetime.timedelta(days=7)     # From last & days
-to_datetime = datetime.datetime.now()
-interval = "5minute"
-print(kite.historical_data(instrument_token, from_datetime, to_datetime, interval, continuous=False, oi=False))
 ```
 
 Place Order

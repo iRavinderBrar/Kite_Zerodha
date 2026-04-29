@@ -3,14 +3,9 @@
 
 * __Author: [AlgoTrader](https://www.youtube.com/@iRavinderBrar)__
 
-## Installation
-
 How to use:
 
-```
-# Download the 'kite_trade.py' file
-# keep the file in same directory where your code file is stored
-```
+* __Video: [AlgoTrader](https://youtu.be/MWtgtUkhT9A)__
 
 ### Prerequisites
 
@@ -25,39 +20,29 @@ from kite_trade import *
 ```
 Log In Method
 ```python
-# # Provide 'enctoken' manually from 'kite.zerodha.com' website
+# # Provide 'authorization' token manually from 'kite.zerodha.com' website
 # # Than you can use login window of 'kite.zerodha.com' website Just don't logout from that window
-# # # Process shared on YouTube 'AlgoTrader'
 
-enctoken = ""
-kite = KiteApp(enctoken=enctoken)
+authorization = ""
+kite = KiteApp(authorization=authorization)
 ```
 
 Basic API Calls
 ```python
 # Basic calls
 print(kite.profile())
-print(kite.margins())
 print(kite.orders())
-print(kite.positions())
 ```
-
+# Basic Order Placement
 Place Order
 ```python
-order = kite.place_order(variety=kite.VARIETY_REGULAR,
-                         exchange=kite.EXCHANGE_NSE,
+order = kite.place_order(variety="regular",
+                         exchange="NSE",
                          tradingsymbol="ACC",
-                         transaction_type=kite.TRANSACTION_TYPE_BUY,
+                         transaction_type="BUY",
                          quantity=1,
-                         product=kite.PRODUCT_MIS,
-                         order_type=kite.ORDER_TYPE_MARKET,
-                         price=None,
-                         validity=None,
-                         disclosed_quantity=None,
-                         trigger_price=None,
-                         squareoff=None,
-                         stoploss=None,
-                         trailing_stoploss=None,
+                         product="MIS",
+                         order_type="MARKET"
                          tag="AlgoTrader")
 
 print(order)
@@ -65,23 +50,18 @@ print(order)
 
 Modify order
 ```python
-kite.modify_order(variety=kite.VARIETY_REGULAR,
+kite.modify_order(variety="regular",
                   order_id="order_id",
-                  parent_order_id=None,
                   quantity=5,
-                  price=200,
-                  order_type=kite.ORDER_TYPE_LIMIT,
-                  trigger_price=None,
-                  validity=kite.VALIDITY_DAY,
-                  disclosed_quantity=None)
-
+                  price=200)
+print(order)
 ```
 
 Cancel order
 ```python
-kite.cancel_order(variety=kite.VARIETY_REGULAR,
-                  order_id="order_id",
-                  parent_order_id=None)
+kite.cancel_order(variety="regular",
+                  order_id="order_id")
+print(order)
 ```
                   
 ```

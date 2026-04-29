@@ -15,7 +15,7 @@ Python >=3.7
 Import
 ```python
 
-from kite_trade import *
+# # Get the code from above kite.trade.py file
 
 ```
 Log In Method

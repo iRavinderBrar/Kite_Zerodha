@@ -1,11 +1,11 @@
 
 # Python Code for Kite Zerodha Platform
 
-* __Author: [AlgoTrader](https://www.youtube.com/@iRavinderBrar)__
+* __Author: [Ravinder Brar](https://www.youtube.com/@iRavinderBrar)__
 
 How to use:
 
-* __Video: [AlgoTrader](https://youtu.be/MWtgtUkhT9A)__
+* __Video: [Ravinder Brar](https://youtu.be/MWtgtUkhT9A)__
 
 ### Prerequisites
 
